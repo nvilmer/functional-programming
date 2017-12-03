@@ -2,6 +2,10 @@ package com.daugherty.exec;
 
 import com.daugherty.examples.Adder;
 
+import java.util.Arrays;
+import java.util.function.BiFunction;
+import java.util.function.Function;
+
 public class Runner {
     /**
      * Pretty much to get rid of unused warnings in Adder class
@@ -19,6 +23,13 @@ public class Runner {
         System.out.println("add 2 and 7: " + adder.twoArgFunctionalInterface.apply(2, 7));
         System.out.println("compare 5 and 5: " + adder.twoArgPredicateFunctionalInterface.test(5, 5));
         System.out.println("compare 5 and 5: " + adder.twoArgLambdaPredicateFunctionalInterface.test(5, 5));
+        System.out.println("add 3 and 5 and 9: " + adder.lambdaAdd3.apply(3, 5, 9));
+
+        String[] words = new String[] {"abcdef", "ghi", "do", "fred"};
+        System.out.println("Word order before sort (list): ");
+        Arrays.asList(words).forEach(System.out::println);
+        Arrays.sort(words, adder.lambdaCompareLength);
+        System.out.println("Words sorted by length: " + Arrays.asList(words));
     }
 
 }

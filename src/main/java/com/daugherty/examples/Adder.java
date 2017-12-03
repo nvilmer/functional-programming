@@ -1,5 +1,6 @@
 package com.daugherty.examples;
 
+import java.util.Comparator;
 import java.util.function.BiFunction;
 import java.util.function.BiPredicate;
 import java.util.function.Function;
@@ -86,5 +87,12 @@ public class Adder {
      * Two argument predicate functional interface using lambda (returns Boolean)
      */
     public BiPredicate<Integer, Integer> twoArgLambdaPredicateFunctionalInterface = (x, y) -> x == y;
+
+    /**
+     * Three argument functional interface using lambda
+     */
+    public TriFunction<Integer, Integer, Integer, Integer> lambdaAdd3 = (a, b, c) -> a + b + c;
+
+    public Comparator<String> lambdaCompareLength = (String first, String second) -> Integer.compare(first.length(), second.length());
 
 }

@@ -1,10 +1,16 @@
 package com.daugherty.examples;
 
+import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;
 
+import org.hamcrest.collection.IsArrayContainingInAnyOrder;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 import java.util.function.BiPredicate;
 
 public class AdderTest {
@@ -84,5 +90,20 @@ public class AdderTest {
         BiPredicate<Integer, Integer> pred2 = adder.twoArgLambdaPredicateFunctionalInterface;
 
         assertTrue(pred1.and(pred2).test(3, 3));
+    }
+
+    @Test
+    public void testThreeArgFunctionalInterface() throws Exception {
+        Integer results = adder.lambdaAdd3.apply(3, 5, 9);
+        assertEquals(Integer.valueOf(17), results);
+    }
+
+    @Test
+    public void testWordLengthCompare() throws Exception {
+        String[] words = new String[] {"abcdef", "ghi", "do", "fred"};
+        List<String> sortedList = new ArrayList(Arrays.asList(words));
+        Collections.sort(sortedList, adder.lambdaCompareLength);
+        assertThat(sortedList, containsInAnyOrder(words));
+        assertThat(sortedList, not(contains(words)));
     }
 }
