@@ -1,0 +1,19 @@
+apply plugin: 'idea'
+apply plugin: 'scala'
+
+repositories {
+    mavenCentral()
+    jcenter()
+}
+
+dependencies {
+    compile 'org.slf4j:slf4j-api:1.7.25'
+    compile 'org.scala-lang:scala-library:2.12.4'
+    //testcompile 'org.scalatest:scalatest_2.12:3.0.4'
+    testCompile 'junit:junit:4.12'
+}
+
+compileJava {
+    sourceCompatibility = '9'
+    targetCompatibility = '9'
+}
