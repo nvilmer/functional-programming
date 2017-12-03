@@ -3,7 +3,6 @@ package com.daugherty.exec;
 import com.daugherty.examples.Adder;
 
 import java.util.Arrays;
-import java.util.function.BiFunction;
 import java.util.function.Function;
 
 public class Runner {

@@ -86,15 +86,29 @@ public class Adder {
     /**
      * Two argument predicate functional interface using lambda (returns Boolean)
      */
-    public BiPredicate<Integer, Integer> twoArgLambdaPredicateFunctionalInterface = (x, y) -> x == y;
+    public BiPredicate<Integer, Integer> twoArgLambdaPredicateFunctionalInterface = (x, y) -> x.equals(y);
 
     /**
      * Three argument functional interface using lambda
      */
     public TriFunction<Integer, Integer, Integer, Integer> lambdaAdd3 = (a, b, c) -> a + b + c;
 
+    /**
+     * Comparator implemented as lambda example
+     */
     public Comparator<String> lambdaCompareLength = (String first, String second) -> Integer.compare(first.length(), second.length());
 
+    /**
+     * Partial Function Example
+     * @param f function arg
+     * @param x first value arg
+     * @param y second value arg
+     * @param <T> type of arg 1
+     * @param <U> type of arg 2
+     * @param <V> type of function arg
+     * @param <R> return type
+     * @return return value from function
+     */
     public static <T, U, V, R> Function<V, R> partial(TriFunction<T, U, V, R> f, T x, U y) {
         return (z) -> f.apply(x, y, z);
     }

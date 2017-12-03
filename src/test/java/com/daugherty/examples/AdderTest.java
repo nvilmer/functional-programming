@@ -3,7 +3,6 @@ package com.daugherty.examples;
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;
 
-import org.hamcrest.collection.IsArrayContainingInAnyOrder;
 import org.junit.Before;
 import org.junit.Test;
 
