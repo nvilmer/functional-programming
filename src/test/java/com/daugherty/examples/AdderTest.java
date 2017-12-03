@@ -12,6 +12,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.function.BiPredicate;
+import java.util.function.Function;
 
 public class AdderTest {
     private Adder adder;
@@ -105,5 +106,11 @@ public class AdderTest {
         Collections.sort(sortedList, adder.lambdaCompareLength);
         assertThat(sortedList, containsInAnyOrder(words));
         assertThat(sortedList, not(contains(words)));
+    }
+
+    @Test
+    public void testPartialFunctionAdder() throws Exception {
+        Function triAdder = Adder.partial(adder.lambdaAdd3, 4, 9);
+        assertEquals(Integer.valueOf(16), triAdder.apply(Integer.valueOf(3)));
     }
 }

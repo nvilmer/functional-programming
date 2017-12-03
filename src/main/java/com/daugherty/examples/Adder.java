@@ -95,4 +95,8 @@ public class Adder {
 
     public Comparator<String> lambdaCompareLength = (String first, String second) -> Integer.compare(first.length(), second.length());
 
+    public static <T, U, V, R> Function<V, R> partial(TriFunction<T, U, V, R> f, T x, U y) {
+        return (z) -> f.apply(x, y, z);
+    }
+
 }
