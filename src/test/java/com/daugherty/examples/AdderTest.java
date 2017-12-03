@@ -53,6 +53,12 @@ public class AdderTest {
     }
 
     @Test
+    public void testOneArgLambdaFunctionalInterface() throws Exception {
+        Integer results = adder.oneArgLambdaFunctionalInterface.apply(20);
+        assertEquals(Integer.valueOf(21), results);
+    }
+
+    @Test
     public void testTwoArgFunctionalInterface() throws Exception {
         Integer results = adder.twoArgFunctionalInterface.apply(2, 7);
         assertEquals(Integer.valueOf(9), results);

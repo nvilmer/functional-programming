@@ -1,12 +1,90 @@
 package com.daugherty.examples;
 
+import java.util.function.BiFunction;
+import java.util.function.BiPredicate;
 import java.util.function.Function;
 
+/**
+ * Simmple addition functional examples showing methods, lambdas, functional interfaces
+ */
 public class Adder {
-    public int add(int x, int y) { return x + y; }
-    public int add3(int x, int y, int z) { return x + y + z; }
+    /**
+     * Two argument method function example
+     *
+     * @param x first arg
+     * @param y second arg
+     * @return sum of two args
+     */
+    public int add(int x, int y) {
+        return x + y;
+    }
 
+    /**
+     * Three argument method function example
+     *
+     * @param x first arg
+     * @param y second arg
+     * @param z third arg
+     * @return sum of three args
+     */
+    public int add3(int x, int y, int z) {
+        return x + y + z;
+    }
+
+    /**
+     * Lambda increment function example
+     */
     public Function<Integer, Integer> inc = x -> x + 1;
+
+    /**
+     * Lambda decrement function example
+     */
     public Function<Integer, Integer> dec = x -> x - 1;
+
+    /**
+     * Lambda nested sum function example
+     * Inner lambda (y) returns Function, outer (x) returns Integer
+     */
     public Function<Integer, Function<Integer, Integer>> sum = x -> y -> x + y;
+
+    /**
+     * Single argument functional interface example
+     */
+    public Function<Integer, Integer> oneArgFunctionalInterface = new Function<Integer, Integer>() {
+        @Override
+        public Integer apply(Integer x) {
+            return inc.apply(x);
+        }
+    };
+
+    /**
+     * Single argument functional interface lambda example
+     */
+    public Function<Integer, Integer> oneArgLambdaFunctionalInterface = x -> x + 1;
+
+    /**
+     * Two argument functional interface example
+     */
+    public BiFunction<Integer, Integer, Integer> twoArgFunctionalInterface = new BiFunction<Integer, Integer, Integer>() {
+        @Override
+        public Integer apply(Integer x, Integer y) {
+            return add(x, y);
+        }
+    };
+
+    /**
+     * Two argument predicate functional interface (returns Boolean)
+     */
+    public BiPredicate<Integer, Integer> twoArgPredicateFunctionalInterface = new BiPredicate<Integer, Integer>() {
+        @Override
+        public boolean test(Integer x, Integer y) {
+            return x.compareTo(y) == 0;
+        }
+    };
+
+    /**
+     * Two argument predicate functional interface using lambda (returns Boolean)
+     */
+    public BiPredicate<Integer, Integer> twoArgLambdaPredicateFunctionalInterface = (x, y) -> x == y;
+
 }
