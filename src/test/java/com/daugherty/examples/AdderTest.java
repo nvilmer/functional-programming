@@ -8,7 +8,6 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.function.BiPredicate;
 import java.util.function.Function;
@@ -101,15 +100,15 @@ public class AdderTest {
     @Test
     public void testWordLengthCompare() throws Exception {
         String[] words = new String[] {"abcdef", "ghi", "do", "fred"};
-        List<String> sortedList = new ArrayList(Arrays.asList(words));
-        Collections.sort(sortedList, adder.lambdaCompareLength);
+        List<String> sortedList = new ArrayList<>(Arrays.asList(words));
+        sortedList.sort(adder.lambdaCompareLength);
         assertThat(sortedList, containsInAnyOrder(words));
         assertThat(sortedList, not(contains(words)));
     }
 
     @Test
     public void testPartialFunctionAdder() throws Exception {
-        Function triAdder = Adder.partial(adder.lambdaAdd3, 4, 9);
-        assertEquals(Integer.valueOf(16), triAdder.apply(Integer.valueOf(3)));
+        Function<Integer, Integer> triAdder = Adder.partial(adder.lambdaAdd3, 4, 9);
+        assertEquals(Integer.valueOf(16), triAdder.apply(3));
     }
 }

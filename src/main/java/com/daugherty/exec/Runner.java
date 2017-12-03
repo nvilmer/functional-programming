@@ -30,7 +30,7 @@ public class Runner {
         Arrays.sort(words, adder.lambdaCompareLength);
         System.out.println("Words sorted by length: " + Arrays.asList(words));
 
-        Function triAdder = Adder.partial(adder.lambdaAdd3, 4, 9);
+        Function<Integer, Integer> triAdder = Adder.partial(adder.lambdaAdd3, 4, 9);
         System.out.println("add 4 and 9 and 3: " + triAdder.apply(3));
     }
 
