@@ -99,7 +99,7 @@ public class Adder {
     public Comparator<String> lambdaCompareLength = (String first, String second) -> Integer.compare(first.length(), second.length());
 
     /**
-     * Partial Function Example
+     * Partial Function Example - accepts TriFunction returns Function
      * @param f function arg
      * @param x first value arg
      * @param y second value arg
@@ -107,10 +107,38 @@ public class Adder {
      * @param <U> type of arg 2
      * @param <V> type of function arg
      * @param <R> return type
-     * @return return value from function
+     * @return return Function<U, V, R>
      */
-    public static <T, U, V, R> Function<V, R> partial(TriFunction<T, U, V, R> f, T x, U y) {
+    public static <T, U, V, R> Function<V, R> partialAcceptTriReturnFunction(TriFunction<T, U, V, R> f, T x, U y) {
         return (z) -> f.apply(x, y, z);
+    }
+
+/**
+ * Partial Function Example - accepts TriFunction returns Function
+ * @param f function arg
+ * @param x first value arg
+ * @param <T> type of arg 1
+ * @param <U> type of arg 2
+ * @param <V> type of function arg
+ * @param <R> return type
+ * @return return BiFunction<V, R>
+ */
+    public static <T, U, V, R> BiFunction<U, V, R> partialAcceptTriReturnBiFunction(TriFunction<T, U, V, R> f, T x) {
+        return (y, z) -> f.apply(x, y, z);
+    }
+
+/**
+ * Partial Function Example - accepts TriFunction returns Function
+ * @apiNote public
+ * @param f function arg
+ * @param x first value arg
+ * @param <T> type of arg 1
+ * @param <U> type of arg 2
+ * @param <R> return type
+ * @return return BiFunction<U, R>
+ */
+    public static <T, U, R> Function<U, R> partialAcceptBiReturnFunction(BiFunction<T, U, R> f, T x) {
+        return (z) -> f.apply(x, z);
     }
 
 }
