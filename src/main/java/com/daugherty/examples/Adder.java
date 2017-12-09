@@ -114,7 +114,7 @@ public class Adder {
     }
 
 /**
- * Partial Function Example - accepts TriFunction returns Function
+ * Partial Function Example - accepts TriFunction returns BiFunction
  * @param f function arg
  * @param x first value arg
  * @param <T> type of arg 1
@@ -128,7 +128,7 @@ public class Adder {
     }
 
 /**
- * Partial Function Example - accepts TriFunction returns Function
+ * Partial Function Example - accepts BiFunction returns Function
  * @apiNote public
  * @param f function arg
  * @param x first value arg
