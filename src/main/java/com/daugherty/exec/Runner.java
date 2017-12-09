@@ -42,6 +42,9 @@ public class Runner {
         System.out.println("multiply 7 and 9: " + adder.curriedMultiplication.apply(7).applyAsInt(9));
         System.out.println("add 4 and 5: " + adder.curryBiFunction(adder.twoArgFunctionalInterface).apply(4).apply(5));
         System.out.println("Multiply 9 and 10 and 11: " + adder.curryMultiplyThreeIntegerFunction().apply(9).apply(10).apply(11));
+
+        System.out.println("add 13 and 5: " + adder.uncurryBiFunction(adder.curryBiFunction(adder.twoArgFunctionalInterface)).apply(13, 5));
+
     }
 
 }

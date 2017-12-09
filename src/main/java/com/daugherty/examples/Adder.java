@@ -152,6 +152,18 @@ public class Adder {
     }
 
     /**
+     * Uncurry (convert to BiFunction)
+     * @param f function arg
+     * @param <T> type of arg 1
+     * @param <U> type of arg 2
+     * @param <R> return type
+     * @return curry function
+     */
+    public <T, U, R> BiFunction<T, U, R> uncurryBiFunction(Function<T, Function<U, R>> f) {
+        return (T x, U y) -> f.apply(x).apply(y);
+    }
+
+    /**
      * Two argument multiplication lambda
      */
     public IntFunction<IntUnaryOperator> curriedMultiplication = x -> y -> x * y;

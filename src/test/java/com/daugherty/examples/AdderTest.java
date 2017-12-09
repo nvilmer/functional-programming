@@ -142,4 +142,10 @@ public class AdderTest {
     public void testFunctionCurryMultiply() throws Exception {
         assertTrue(Integer.valueOf(990).equals(adder.curryMultiplyThreeIntegerFunction().apply(9).apply(10).apply(11)));
     }
+
+    @Test
+    public void testUncurryBiFunctionAdd() throws Exception {
+        assertTrue(Integer.valueOf(18).equals(adder.uncurryBiFunction(adder.curryBiFunction(adder.twoArgFunctionalInterface)).apply(13, 5)));
+
+    }
 }
