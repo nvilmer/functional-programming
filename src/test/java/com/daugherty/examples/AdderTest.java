@@ -9,6 +9,7 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.BiFunction;
 import java.util.function.BiPredicate;
 import java.util.function.Function;
 
@@ -107,8 +108,44 @@ public class AdderTest {
     }
 
     @Test
-    public void testPartialFunctionAdder() throws Exception {
-        Function<Integer, Integer> triAdder = Adder.partial(adder.lambdaAdd3, 4, 9);
+    public void testPartialTriFunctionToFunctionAdder() throws Exception {
+        Function<Integer, Integer> triAdder = adder.partialAcceptTriReturnFunction(adder.lambdaAdd3, 4, 9);
         assertEquals(Integer.valueOf(16), triAdder.apply(3));
+    }
+
+    @Test
+    public void testPartialTriFunctiontoBiFunctionAdder() throws Exception {
+        BiFunction<Integer, Integer, Integer> biAdder = adder.partialAcceptTriReturnBiFunction(adder.lambdaAdd3, 10);
+        Function<Integer, Integer> adderFunc = adder.partialAcceptBiReturnFunction(biAdder, 20);
+        assertEquals(Integer.valueOf(60), adderFunc.apply(30));
+    }
+
+    @Test
+    public void testComparePartialAdders() throws Exception {
+        Function<Integer, Integer> triAdder = adder.partialAcceptTriReturnFunction(adder.lambdaAdd3, 10, 20);
+        BiFunction<Integer, Integer, Integer> biAdder = adder.partialAcceptTriReturnBiFunction(adder.lambdaAdd3, 10);
+        Function<Integer, Integer> adderFunc = adder.partialAcceptBiReturnFunction(biAdder, 20);
+        assertEquals(triAdder.apply(30), adderFunc.apply(30));
+    }
+
+    @Test
+    public void testCurryLambdaMultiplication() throws Exception {
+        assertTrue(Integer.valueOf(63).equals(adder.curriedMultiplication.apply(7).applyAsInt(9)));
+    }
+
+    @Test
+    public void testBiFunctionToCurryAdd() throws Exception {
+        assertTrue(Integer.valueOf(9).equals(adder.curryBiFunction(adder.twoArgFunctionalInterface).apply(4).apply(5)));
+    }
+
+    @Test
+    public void testFunctionCurryMultiply() throws Exception {
+        assertTrue(Integer.valueOf(990).equals(adder.curryMultiplyThreeIntegerFunction().apply(9).apply(10).apply(11)));
+    }
+
+    @Test
+    public void testUncurryBiFunctionAdd() throws Exception {
+        assertTrue(Integer.valueOf(18).equals(adder.uncurryBiFunction(adder.curryBiFunction(adder.twoArgFunctionalInterface)).apply(13, 5)));
+
     }
 }

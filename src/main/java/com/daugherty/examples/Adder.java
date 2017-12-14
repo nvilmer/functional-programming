@@ -1,9 +1,7 @@
 package com.daugherty.examples;
 
 import java.util.Comparator;
-import java.util.function.BiFunction;
-import java.util.function.BiPredicate;
-import java.util.function.Function;
+import java.util.function.*;
 
 /**
  * Simmple addition functional examples showing methods, lambdas, functional interfaces
@@ -99,7 +97,7 @@ public class Adder {
     public Comparator<String> lambdaCompareLength = (String first, String second) -> Integer.compare(first.length(), second.length());
 
     /**
-     * Partial Function Example
+     * Partial Function Example - accepts TriFunction returns Function
      * @param f function arg
      * @param x first value arg
      * @param y second value arg
@@ -107,10 +105,89 @@ public class Adder {
      * @param <U> type of arg 2
      * @param <V> type of function arg
      * @param <R> return type
-     * @return return value from function
+     * @return return Function<U, V, R>
      */
-    public static <T, U, V, R> Function<V, R> partial(TriFunction<T, U, V, R> f, T x, U y) {
+    public <T, U, V, R> Function<V, R> partialAcceptTriReturnFunction(final TriFunction<T, U, V, R> f, final T x, final U y) {
         return (z) -> f.apply(x, y, z);
     }
 
+/**
+ * Partial Function Example - accepts TriFunction returns BiFunction
+ * @param f function arg
+ * @param x first value arg
+ * @param <T> type of arg 1
+ * @param <U> type of arg 2
+ * @param <V> type of function arg
+ * @param <R> return type
+ * @return return BiFunction<V, R>
+ */
+    public <T, U, V, R> BiFunction<U, V, R> partialAcceptTriReturnBiFunction(final TriFunction<T, U, V, R> f, final T x) {
+        return (y, z) -> f.apply(x, y, z);
+    }
+
+/**
+ * Partial Function Example - accepts BiFunction returns Function
+ * @apiNote public
+ * @param f function arg
+ * @param x first value arg
+ * @param <T> type of arg 1
+ * @param <U> type of arg 2
+ * @param <R> return type
+ * @return return BiFunction<U, R>
+ */
+    public <T, U, R> Function<U, R> partialAcceptBiReturnFunction(final BiFunction<T, U, R> f, final T x) {
+        return (z) -> f.apply(x, z);
+    }
+
+    /**
+     * Curry a BiFunction (convert to curry)
+     * @param f function arg
+     * @param <T> type of arg 1
+     * @param <U> type of arg 2
+     * @param <R> return type
+     * @return curry function
+     */
+    public <T, U, R> Function<T, Function<U, R>> curryBiFunction(BiFunction<T, U, R> f) {
+        return (T x) -> (U y) -> f.apply(x, y);
+    }
+
+    /**
+     * Uncurry (convert to BiFunction)
+     * @param f function arg
+     * @param <T> type of arg 1
+     * @param <U> type of arg 2
+     * @param <R> return type
+     * @return curry function
+     */
+    public <T, U, R> BiFunction<T, U, R> uncurryBiFunction(Function<T, Function<U, R>> f) {
+        return (T x, U y) -> f.apply(x).apply(y);
+    }
+
+    /**
+     * Two argument multiplication lambda
+     */
+    public IntFunction<IntUnaryOperator> curriedMultiplication = x -> y -> x * y;
+
+    /**
+     * Three argument curry function
+     * @return curry function
+     */
+    public ThreeIntegerCurryFunction curryMultiplyThreeIntegerFunction() {
+        return new ThreeIntegerCurryFunction() {
+            @Override
+            public Function<Integer, Function<Integer, Integer>> apply(final Integer x) {
+                return new Function<Integer, Function<Integer, Integer>>() {
+                    @Override
+                    public Function<Integer, Integer> apply(final Integer y) {
+                        return new Function<Integer, Integer>() {
+                            @Override
+                            public Integer apply(final Integer z) {
+                                return x * y * z;
+                            }
+                        };
+                    }
+                };
+            }
+        };
+    }
 }

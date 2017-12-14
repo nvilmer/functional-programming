@@ -3,11 +3,13 @@ package com.daugherty.exec;
 import com.daugherty.examples.Adder;
 
 import java.util.Arrays;
+import java.util.function.BiFunction;
 import java.util.function.Function;
 
 public class Runner {
     /**
      * Pretty much to get rid of unused warnings in Adder class
+     * but also another example of use besides junit tests
      */
     public static void main(String[] args) {
         System.out.println("*** Run Adder class functions ***");
@@ -30,8 +32,19 @@ public class Runner {
         Arrays.sort(words, adder.lambdaCompareLength);
         System.out.println("Words sorted by length: " + Arrays.asList(words));
 
-        Function<Integer, Integer> triAdder = Adder.partial(adder.lambdaAdd3, 4, 9);
-        System.out.println("add 4 and 9 and 3: " + triAdder.apply(3));
+        Function<Integer, Integer> adder2 = adder.partialAcceptTriReturnFunction(adder.lambdaAdd3, 4, 9);
+        System.out.println("add 4 and 9 and 3: " + adder2.apply(3));
+
+        BiFunction<Integer, Integer, Integer> biAdder = adder.partialAcceptTriReturnBiFunction(adder.lambdaAdd3, 10);
+        Function<Integer, Integer> adder3 = adder.partialAcceptBiReturnFunction(biAdder, 20);
+        System.out.println("add 10 and 20 and 30: " + adder3.apply(30));
+
+        System.out.println("multiply 7 and 9: " + adder.curriedMultiplication.apply(7).applyAsInt(9));
+        System.out.println("add 4 and 5: " + adder.curryBiFunction(adder.twoArgFunctionalInterface).apply(4).apply(5));
+        System.out.println("Multiply 9 and 10 and 11: " + adder.curryMultiplyThreeIntegerFunction().apply(9).apply(10).apply(11));
+
+        System.out.println("add 13 and 5: " + adder.uncurryBiFunction(adder.curryBiFunction(adder.twoArgFunctionalInterface)).apply(13, 5));
+
     }
 
 }
